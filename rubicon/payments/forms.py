@@ -9,4 +9,6 @@ class BuyingPrivilegeForm(forms.Form):
     privilege = forms.ModelChoiceField(
         queryset=Privilege.objects.all(), required=True, label=''
     )
-    privilege.widget.attrs.update({'style': 'display: block;'})
+    privilege.widget.attrs.update(
+        {'style': 'display: block;', 'class': 'privilege'}
+    )

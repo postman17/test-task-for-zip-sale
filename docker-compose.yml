@@ -1,0 +1,48 @@
+version: '2'
+services:
+    app:
+        build: .
+        depends_on:
+            - database
+        env_file:
+            - .env
+        ports:
+            - 8000:8000
+        volumes:
+            - ./etc/app:/opt/app/etc
+            - ./log/app:/opt/app/log
+            - ./static:/opt/app/static
+            - ./rubicon:/opt/app/rubicon
+        networks:
+            - database
+
+#    nginx:
+#        image: nginx:1.17.3
+#        depends_on:
+#            - app
+#        ports:
+#            - 80:80
+#            - 443:443
+#        volumes:
+#            - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+#            - ./etc/nginx/conf.d:/etc/nginx/conf.d
+#            - ./static:/opt/app/static
+#        networks:
+#            - nginx
+
+    database:
+        image: postgres:10.10
+        env_file:
+            - .env
+        ports:
+            - 45637:5432
+        volumes:
+            - ./data/database:/var/lib/postgresql/data
+        networks:
+            - database
+
+networks:
+#    nginx:
+#        driver: bridge
+    database:
+        driver: bridge

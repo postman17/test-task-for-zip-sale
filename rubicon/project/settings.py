@@ -20,12 +20,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_7fk4qylm=#0$feca$la4*=0p*-qluev7@=((lpc65zvjb(ltv'
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
+if not SECRET_KEY:
+    raise Exception('Secret key is not provided')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.environ.get('DEBUG', None) == 'True' else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -77,9 +82,13 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_DB', ''),
+        'USER': os.environ.get('POSTGRES_USER', ''),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+        'HOST': os.environ.get('POSTGRES_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+    },
 }
 
 
@@ -119,6 +128,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_ROOT = "/opt/app/static"
+STATIC_URL = "/static/"
 
-MEDIA_URL   = "/media/"
+MEDIA_ROOT = "/opt/app/static/media"
+MEDIA_URL = "/media/"

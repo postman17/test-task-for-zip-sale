@@ -7,7 +7,7 @@
     <div class="section no-pad-bot">
         <div class="container">
             <br><br>
-            <h1 class="header center teal-text text-lighten-2">SUBLUV</h1>
+            <h1 class="header center teal-text text-lighten-2">SUBLAV</h1>
             <div class="row center">
                 <h5 class="header col s12 light">Ванильный майнкрафт сервер на версии 1.15.2</h5>
             </div>
@@ -33,10 +33,7 @@
                     <h2 class="center brown-text"><i class="material-icons">group</i></h2>
                     <h5 class="center">Дружеское комьюнити</h5>
 
-                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a
-                        framework that incorporates components and animations that provide more feedback to users.
-                        Additionally, a single underlying responsive system across all platforms allow for a more
-                        unified user experience.</p>
+                    <p class="light"><span class="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur commodi, ducimus ipsam iure minus perferendis perspiciatis rerum saepe. Architecto commodi debitis ea, earum facilis itaque maiores provident. Maxime, nobis, sunt!</span></p>
                 </div>
             </div>
 
@@ -45,9 +42,7 @@
                     <h2 class="center brown-text"><i class="material-icons">settings</i></h2>
                     <h5 class="center">Слаженная команда админов и модераторов</h5>
 
-                    <p class="light">We have provided detailed documentation as well as specific code examples to help
-                        new users get started. We are also always open to feedback and can answer any questions a user
-                        may have about Materialize.</p>
+                    <p class="light"><span class="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur doloremque esse harum quisquam, quos saepe sequi voluptas. Animi asperiores culpa molestiae, nam nemo nesciunt nulla omnis quos reiciendis ullam vel!</span></p>
                 </div>
             </div>
         </div>
@@ -78,7 +73,7 @@
                     <div class="input-field col s12">
                         {{ form.privilege }}
                     </div>
-                    <a class="waves-effect waves-light btn">Купить</a>
+                    <a class="waves-effect waves-light btn submit-btn">Купить</a>
                 </form>
             </div>
         </div>
@@ -90,12 +85,20 @@
     <div class="section no-pad-bot">
         <div class="container">
             <div class="row center">
-                <h5 class="header col s12 light">Тут какой-то текст</h5>
+                <h5 class="header col s12 light">Игра в режиме выживания</h5>
             </div>
         </div>
     </div>
     <div class="parallax"><img src="{% static 'core/background3.jpg' %}" alt="Unsplashed background img 3"></div>
 </div>
+<script>
+    const submitBtn = document.querySelector(".submit-btn");
+    let privilegeSelect = document.querySelector(".privilege");
+
+    submitBtn.addEventListener("click", event => {
+        if (privilegeSelect.value) alert("This section in developing...");
+    });
+</script>
 {% endblock %}
 
 

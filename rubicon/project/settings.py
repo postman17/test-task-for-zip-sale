@@ -29,7 +29,8 @@ DEBUG = True if os.environ.get('DEBUG', None) == 'True' else False
 
 ALLOWED_HOSTS = [
     '*',
-    '127.0.0.1',
+    '0.0.0.0'
+    '127.0.0.1:8000',
 ]
 
 

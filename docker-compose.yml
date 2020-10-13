@@ -24,7 +24,6 @@ services:
         ports:
             - 80:80
             - 443:443
-            - 8123:8123
         volumes:
             - ./etc/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
             - ./static:/opt/app/static

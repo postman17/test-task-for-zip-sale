@@ -76,6 +76,7 @@
                     <div class="input-field col s12">
                         {{ form.privilege }}
                     </div>
+<!--                    <a class="waves-effect waves-light btn modal-trigger submit-btn" href="#modal1">Купить</a>-->
                     <a class="waves-effect waves-light btn submit-btn">Купить</a>
                 </form>
             </div>
@@ -83,7 +84,6 @@
 
     </div>
 </div>
-
 <div class="parallax-container valign-wrapper">
     <div class="section no-pad-bot">
         <div class="container">
@@ -95,11 +95,19 @@
     <div class="parallax"><img src="{% static 'core/background3.jpg' %}" alt="Unsplashed background img 3"></div>
 </div>
 <script>
-    const submitBtn = document.querySelector(".submit-btn");
-    let privilegeSelect = document.querySelector(".privilege");
-
-    submitBtn.addEventListener("click", event => {
-        if (privilegeSelect.value) alert("This section in developing...");
+    document.addEventListener('DOMContentLoaded', function() {
+        const modals = document.querySelectorAll('.modal');
+        const submitBtn = document.querySelector(".submit-btn");
+        const instances = M.Modal.init(modals);
+        instances.forEach(elem => {
+            if (elem.id === 'modal1') {
+                submitBtn.addEventListener("click", event => {
+                    const privilegeSelect = document.querySelector(".privilege");
+                    if (!privilegeSelect.value) return;
+                    elem.open();
+                });
+            }
+        });
     });
 </script>
 {% endblock %}

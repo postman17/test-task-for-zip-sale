@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
-# Create your views here.
+
+class SuccessPage(TemplateView):
+    template_name = 'payments/success.html'
+
+
+class FailedPage(TemplateView):
+    template_name = 'payments/failed.html'

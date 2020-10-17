@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Оплата</title>
+    <script src="//www.free-kassa.ru/widget/w.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+function load_form() {
+    const form = new FK();
+    form.loadWidget({
+        merchant_id: 'MERCHANT_ID',
+        amount: 'AMOUNT',
+        order_id: 'ORDER_ID',
+        email: 'EMAIL',
+        phone: 'PHONE',
+        sign: 'SIGN',
+        // us_user: 1,
+        // us_desc: 'Test',
+    });
+}
+</script>
+</body>
+</html>

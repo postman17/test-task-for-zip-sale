@@ -134,3 +134,8 @@ STATIC_URL = "/static/"
 
 MEDIA_ROOT = "/opt/app/static/media"
 MEDIA_URL = "/media/"
+
+
+# Environments variables
+MERCHANT_ID = os.environ.get('MERCHANT_ID', '')
+SECRET_WORD_1 = os.environ.get('SECRET_WORD_1', '')

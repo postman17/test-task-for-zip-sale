@@ -76,7 +76,6 @@
                     <div class="input-field col s12">
                         {{ form.privilege }}
                     </div>
-<!--                    <a class="waves-effect waves-light btn modal-trigger submit-btn" href="#modal1">Купить</a>-->
                     <a class="waves-effect waves-light btn submit-btn">Купить</a>
                 </form>
             </div>
@@ -95,20 +94,52 @@
     <div class="parallax"><img src="{% static 'core/background3.jpg' %}" alt="Unsplashed background img 3"></div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const modals = document.querySelectorAll('.modal');
-        const submitBtn = document.querySelector(".submit-btn");
-        const instances = M.Modal.init(modals);
-        instances.forEach(elem => {
-            if (elem.id === 'modal1') {
-                submitBtn.addEventListener("click", event => {
-                    const privilegeSelect = document.querySelector(".privilege");
-                    if (!privilegeSelect.value) return;
-                    elem.open();
-                });
-            }
+class Request {
+    static async send(params) {
+        const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+
+        let responseData = await fetch('/payments/get_payment_url/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify({
+                ...params
+            })
         });
+        return responseData.json()
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const modals = document.querySelectorAll('.modal');
+    const submitBtn = document.querySelector(".submit-btn");
+    const instances = M.Modal.init(modals);
+    instances.forEach(elem => {
+        if (elem.id === 'modal1') {
+            submitBtn.addEventListener("click", event => {
+                const privilegeSelect = document.querySelector(".privilege");
+                if (!privilegeSelect.value) return;
+                elem.open();
+            });
+            const buyBtn = document.querySelector(".buy-btn");
+            const privilegeSelect = document.querySelector(".privilege");
+            buyBtn.addEventListener("click", event => {
+                const nicknameInput = document.querySelector('[name="nickname"]');
+                if (!nicknameInput.value) return M.toast({html: 'Введите Ваш никнейм!'})
+                const params = {
+                    'privilege_id': privilegeSelect.value,
+                    'nickname': nicknameInput.value
+                };
+                Request.send(params).then((data) => {
+                    elem.close();
+                    window.location.replace(data.url);
+                })
+            });
+        }
     });
+});
 </script>
 {% endblock %}
 

@@ -34,10 +34,6 @@ class PaymentUrl(View):
         return JsonResponse({'url': url})
 
 
-class PaymentFormView(TemplateView):
-    template_name = 'payments/form_of_payment.html'
-
-
 class OrderNotification(View):
     def post(self, request):
         logger.info(request.body)

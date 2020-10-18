@@ -134,7 +134,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 Request.send(params).then((data) => {
                     elem.close();
-                    window.location.replace(data.url);
+                    const form = new FK();
+                    form.loadWidget({
+                        merchant_id: data['merchant_id'],
+                        amount: data['amount'],
+                        order_id: data['order_id'],
+                        // email: 'EMAIL',
+                        // phone: 'PHONE',
+                        sign: data['sign'],
+                        // us_user: 1,
+                        us_desc: 'Test',
+                    });
+                }).catch(error => {
+                    M.toast({html: error})
                 })
             });
         }

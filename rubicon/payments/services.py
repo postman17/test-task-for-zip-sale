@@ -18,5 +18,9 @@ def get_payment_url(privilege_id, nickname):
     )
     merchant_id = settings.MERCHANT_ID
     sign = hashlib.md5(f'{merchant_id}{settings.SECRET_WORD_1}'.encode())
-    return f'/payments/form_of_payment?merchant_id={merchant_id}&amount={privilege.amount}&' \
-           f'order_id={order.id}&sign={sign.hexdigest()}'
+    return {
+        'merchant_id': merchant_id,
+        'amount': privilege.amount,
+        'order_id': order.id,
+        'sign': sign.hexdigest()
+    }

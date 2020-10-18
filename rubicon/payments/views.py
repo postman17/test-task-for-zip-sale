@@ -8,7 +8,7 @@ from . import services
 
 logger = logging.getLogger('spam_application')
 logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler('/root/rubicon/log/test.log')
+fh = logging.FileHandler('/opt/app/log/test.log')
 fh.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 

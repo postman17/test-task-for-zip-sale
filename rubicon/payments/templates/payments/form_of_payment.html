@@ -1,19 +1,37 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Оплата</title>
+    <link rel="shortcut icon" href="{% static 'core/favicon.ico' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'js/materialize.js' %}"></script>
+    <script src="{% static 'js/init.js' %}"></script>
 </head>
 <body>
-<form method='get' action='https://www.free-kassa.ru/merchant/cash.php'>
-    <input type='hidden' name='m' value='merchant_id?'>
-    <input type='hidden' name='oa' value='order_amount'>
-    <input type='hidden' name='o' value='order_id'>
-    <input type='hidden' name='s' value='sign'>
-<!--    <input type='hidden' name='i' value='179'>-->
-    <input type='hidden' name='lang' value='ru'>
-    <input type='submit' name='pay' value='Оплатить'>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h3>Нажмите чтобы перейти на сайт оплаты</h3>
+            <form method='get' action='https://www.free-kassa.ru/merchant/cash.php'>
+                <input type='hidden' name='m' value='merchant_id?'>
+                <input type='hidden' name='oa' value='order_amount'>
+                <input type='hidden' name='o' value='order_id'>
+                <input type='hidden' name='s' value='sign'>
+                <!--    <input type='hidden' name='i' value='179'>-->
+                <input type='hidden' name='lang' value='ru'>
+                <input type='submit' name='pay' value='Оплатить' class="waves-effect waves-light btn">
+            </form>
+        </div>
+        <div class="col s12" style="margin-top: 20px">
+            <img src="{% static 'core/payment.jpg' %}" alt="" width="500">
+        </div>
+    </div>
+</div>
 <script>
 const url = new URL(window.location.href);
 const merchant_id = url.searchParams.get('merchant_id');

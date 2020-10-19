@@ -3,6 +3,7 @@ import logging
 from django.views.generic import TemplateView, View
 from django.http import JsonResponse, Http404
 
+from . import models
 from . import services
 
 
@@ -41,6 +42,10 @@ class OrderNotification(View):
             body = json.loads(request.body)
         except Exception:
             raise Http404
+
+        order = models.Order.objects.filter(id=body.get('MERCHANT_ORDER_ID')).first()
+        order.status = models.Order.STATUS_SUCCESS
+        order.save(update_fields=['status'])
 
         return JsonResponse({})
 

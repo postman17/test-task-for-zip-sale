@@ -43,3 +43,7 @@ class OrderNotification(View):
             raise Http404
 
         return JsonResponse({})
+
+
+class FormOfPayment(TemplateView):
+    template_name = 'payments/form_of_payment.html'

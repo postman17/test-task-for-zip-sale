@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Оплата</title>
+</head>
+<body>
+<form method='get' action='https://www.free-kassa.ru/merchant/cash.php'>
+    <input type='hidden' name='m' value='merchant_id?'>
+    <input type='hidden' name='oa' value='order_amount'>
+    <input type='hidden' name='o' value='order_id'>
+    <input type='hidden' name='s' value='sign'>
+<!--    <input type='hidden' name='i' value='179'>-->
+    <input type='hidden' name='lang' value='ru'>
+    <input type='submit' name='pay' value='Оплатить'>
+</form>
+<script>
+const url = new URL(window.location.href);
+const merchant_id = url.searchParams.get('merchant_id');
+const amount = url.searchParams.get('amount');
+const order_id = url.searchParams.get('order_id');
+const sign = url.searchParams.get('sign');
+let m = document.querySelector('[name="m"]');
+let oa = document.querySelector('[name="oa"]');
+let o = document.querySelector('[name="o"]');
+let s = document.querySelector('[name="s"]');
+m.value = merchant_id;
+oa.value = amount;
+o.value = order_id;
+s.value = sign;
+</script>
+</body>
+</html>

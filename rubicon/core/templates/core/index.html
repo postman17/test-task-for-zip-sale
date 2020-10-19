@@ -133,18 +133,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     'nickname': nicknameInput.value
                 };
                 Request.send(params).then((data) => {
+                    window.location.replace(data.url);
                     elem.close();
-                    const form = new FK();
-                    form.loadWidget({
-                        merchant_id: data['merchant_id'],
-                        amount: data['amount'],
-                        order_id: data['order_id'],
-                        // email: 'EMAIL',
-                        // phone: 'PHONE',
-                        sign: data['sign'],
-                        // us_user: 1,
-                        us_desc: 'Test',
-                    });
                 }).catch(error => {
                     M.toast({html: error})
                 })

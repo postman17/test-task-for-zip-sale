@@ -44,10 +44,12 @@ class OrderNotification(View):
             raise Http404
 
         order = models.Order.objects.filter(id=body.get('MERCHANT_ORDER_ID')).first()
-        order.status = models.Order.STATUS_SUCCESS
-        order.save(update_fields=['status'])
+        if order:
+            order.status = models.Order.STATUS_SUCCESS
+            order.updated_at = models.Order.STATUS_SUCCESS
+            order.save(update_fields=['status', 'updated_at'])
 
-        return JsonResponse({})
+        raise Exception('YES')
 
 
 class FormOfPayment(TemplateView):

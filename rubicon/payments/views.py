@@ -2,6 +2,8 @@ import json
 import logging
 from django.views.generic import TemplateView, View
 from django.http import JsonResponse, Http404
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 from . import models
 from . import services
@@ -35,6 +37,7 @@ class PaymentUrl(View):
         return JsonResponse({'url': url})
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class OrderNotification(View):
     def post(self, request):
         logger.info(request.body)

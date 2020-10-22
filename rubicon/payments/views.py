@@ -2,7 +2,7 @@ import json
 import logging
 import urllib.parse
 from django.views.generic import TemplateView, View
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.utils import timezone
@@ -52,7 +52,7 @@ class OrderNotification(View):
                 order.updated_at = timezone.now()
                 order.save(update_fields=['status', 'updated_at'])
 
-        raise Exception('YES')
+        return HttpResponse('YES')
 
 
 class FormOfPayment(TemplateView):

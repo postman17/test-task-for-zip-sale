@@ -139,3 +139,6 @@ MEDIA_URL = "/media/"
 # Environments variables
 MERCHANT_ID = os.environ.get('MERCHANT_ID', '')
 SECRET_WORD_1 = os.environ.get('SECRET_WORD_1', '')
+
+RCON_SERVER_IP = os.environ.get('RCON_SERVER_IP', '')
+RCON_SERVER_SECRET = os.environ.get('RCON_SERVER_SECRET', '')

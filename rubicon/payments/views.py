@@ -1,19 +1,16 @@
 import json
 import logging
-import urllib.parse
 from django.views.generic import TemplateView, View
 from django.http import JsonResponse, Http404, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.utils import timezone
 
-from . import models
 from . import services
 
 
 logger = logging.getLogger('spam_application')
 logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler('/opt/app/log/test.log')
+fh = logging.FileHandler('/opt/app/log/orders_webhook.log')
 fh.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 
@@ -30,7 +27,7 @@ class PaymentUrl(View):
     def post(self, request):
         try:
             body = json.loads(request.body)
-            nickname = body['nickname']
+            nickname = body['nickname'].strip()
             privilege_id = body['privilege_id']
         except Exception:
             raise Http404
@@ -43,14 +40,7 @@ class PaymentUrl(View):
 class OrderNotification(View):
     def post(self, request):
         logger.info(request.body)
-        url_params = urllib.parse.parse_qs(request.body.decode())
-        merchant_id = url_params.get('MERCHANT_ORDER_ID')[0] if len(url_params.get('MERCHANT_ORDER_ID')) > 0 else 0
-        if merchant_id:
-            order = models.Order.objects.filter(id=merchant_id).first()
-            if order:
-                order.status = models.Order.STATUS_SUCCESS
-                order.updated_at = timezone.now()
-                order.save(update_fields=['status', 'updated_at'])
+        services.order_notification_handler(request.body.decode())
 
         return HttpResponse('YES')
 

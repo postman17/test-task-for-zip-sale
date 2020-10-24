@@ -13,10 +13,10 @@ app.autodiscover_tasks()
 
 
 app.conf.beat_schedule = {
-    # 'Tracking proxies': {
-    #     'task': 'tracker.tasks.tracking',
-    #     'schedule': crontab(minute=0, hour=0, day_of_month='*/3'),
-    # },
+    'Clear not confirmation orders': {
+        'task': 'payments.tasks.clear_not_confirmation_orders',
+        'schedule': crontab(minute='*/1'),
+    },
     # 'Upload proxies': {
     #     'task': 'tracker.tasks.proxy_uploader',
     #     'schedule': crontab(minute=0, hour='*/1'),

@@ -19,6 +19,8 @@ class WhiteList(models.Model):
     nickname = models.CharField(max_length=100)
     expire_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    response_in_add = models.TextField(blank=True, null=True)
+    response_in_remove = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'core__whitelist'
@@ -37,11 +39,15 @@ class WhiteList(models.Model):
         server_ip = settings.RCON_SERVER_IP
         server_secret = settings.RCON_SERVER_SECRET
         with MCRcon(server_ip, server_secret) as mcr:
-            mcr.command(f'whitelist add {self.nickname}')
+            response = mcr.command(f'whitelist add {self.nickname}')
+            self.response_in_add = str(response)
+            self.save(update_fields=['response_in_add'])
 
     def remove_from_whitelist(self):
         """Remove user from whitelist."""
         server_ip = settings.RCON_SERVER_IP
         server_secret = settings.RCON_SERVER_SECRET
         with MCRcon(server_ip, server_secret) as mcr:
-            mcr.command(f'whitelist remove {self.nickname}')
+            response = mcr.command(f'whitelist remove {self.nickname}')
+            self.response_in_remove = str(response)
+            self.save(update_fields=['response_in_remove'])

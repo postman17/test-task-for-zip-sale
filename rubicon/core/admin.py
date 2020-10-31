@@ -22,6 +22,8 @@ class WhiteListAdmin(admin.ModelAdmin):
         'status',
         'user',
         'nickname',
+        'response_in_add',
+        'response_in_remove',
         'expire_at',
         'created_at',
     )

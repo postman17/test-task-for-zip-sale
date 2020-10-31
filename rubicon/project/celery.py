@@ -15,10 +15,10 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'Clear not confirmation orders': {
         'task': 'payments.tasks.clear_not_confirmation_orders',
-        'schedule': crontab(minute='*/1'),
+        'schedule': crontab(minute='*/10'),
     },
-    # 'Upload proxies': {
-    #     'task': 'tracker.tasks.proxy_uploader',
-    #     'schedule': crontab(minute=0, hour='*/1'),
-    # },
+    'Remove expired data users from whitelist': {
+        'task': 'core.tasks.whitelist_handler',
+        'schedule': crontab(minute=0, hour='*/1'),
+    },
 }

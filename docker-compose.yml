@@ -13,10 +13,9 @@ services:
             - ./log/app:/opt/app/log
             - ./tmp:/opt/app/tmp
             - ./static:/opt/app/static
-            - ./rubicon:/opt/app/rubicon
+            - ./checker:/opt/app/checker
         networks:
             - database
-            - redis
 
     nginx:
         image: nginx:stable-alpine
@@ -44,48 +43,9 @@ services:
         networks:
             - database
 
-    redis:
-        image: redis:5.0.9-alpine3.12
-        volumes:
-            - ./var/redis:/data/data
-            - ./log/redis:/data/logs
-            - ./etc/redis/redis.conf:/usr/local/etc/redis/redis.conf
-        command: redis-server /usr/local/etc/redis/redis.conf
-        networks:
-            - redis
-
-    flower:
-        build: ./etc/flower
-        depends_on:
-            - redis
-        env_file:
-            - .env
-        volumes:
-            - ./log/flower:/logs
-        command: flower --url-prefix=/flower --basic_auth=$FLOWER_LOGIN:$FLOWER_PASSWORD --port=5555 --broker=$BROKER_URI
-        networks:
-            - redis
-            - nginx
-
-    celery:
-        build: .
-        env_file:
-            - .env
-        command: sh -c "cd /opt/app/rubicon && celery -A project worker -n celery@%h -c 2 -B -E -s /tmp/celery.%t"
-        volumes:
-            - ./rubicon:/opt/app/rubicon
-            - ./log/app:/opt/app/log
-            - ./tmp:/opt/app/tmp
-        depends_on:
-            - redis
-        networks:
-            - redis
-            - database
 
 networks:
     nginx:
         driver: bridge
     database:
-        driver: bridge
-    redis:
         driver: bridge

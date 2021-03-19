@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.9-alpine
 ENV PYTHONUNBUFFERED 1
 
 RUN apk update && \
@@ -16,10 +16,10 @@ COPY requirements.txt /opt/app
 
 RUN pip3 install -r requirements.txt
 
-WORKDIR /opt/app/rubicon
+WORKDIR /opt/app/checker
 
 # prod
-CMD gunicorn -b unix:/opt/app/tmp/gunicorn.sock project.wsgi:application
+#CMD gunicorn -b unix:/opt/app/tmp/gunicorn.sock project.wsgi:application
 
 # for develop
-#CMD python3 manage.py runserver 0.0.0.0:8000
+CMD python3 manage.py runserver 0.0.0.0:8000

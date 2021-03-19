@@ -1,0 +1,27 @@
+{% extends 'core/components/base.html' %}
+
+{% block content %}
+    <style>
+        .block {
+            width: 250px;
+            height: 250px;
+            position: absolute;
+            top: 40%;
+            left: 40%;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center block">
+                <form action="result/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">Enter github username</label>
+                        {{ form.username }}
+                        <input type="submit" style="margin-top: 5px;">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
